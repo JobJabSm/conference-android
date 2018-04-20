@@ -35,10 +35,11 @@ public class ConferenceApplication extends Application {
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                         .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
                         .build());
-        TwitterConfig twitterConfig = new TwitterConfig.Builder(this)
-                .debug(true)
-                .twitterAuthConfig(new TwitterAuthConfig(BuildConfig.TwitterApiKey, BuildConfig.TwitterSecretKey)).build();
-        Twitter.initialize(twitterConfig);
+        // TODO: Uncomment or remove once we have a clear backend.
+//        TwitterConfig twitterConfig = new TwitterConfig.Builder(this)
+//                .debug(true)
+//                .twitterAuthConfig(new TwitterAuthConfig(BuildConfig.TwitterApiKey, BuildConfig.TwitterSecretKey)).build();
+//        Twitter.initialize(twitterConfig);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/calibri.ttf")
                 .setFontAttrId(R.attr.fontPath)

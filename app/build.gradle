@@ -1,25 +1,27 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 
-def TWITTER_API_KEY = '"' + TwitterApiKey + '"' ?: '"Twitter Login won\'t work. Please use the apk from the apk branch."'
-def TWITTER_API_SECRET = '"' + TwitterSecretKey + '"' ?: '"Twitter Login won\'t work. Please use the apk from the apk branch."'
-def STRING = 'String'
+// TODO: Uncomment or remove once we have a clear backend.
+//def TWITTER_API_KEY = '"' + TwitterApiKey + '"' ?: '"Twitter Login won\'t work. Please use the apk from the apk branch."'
+//def TWITTER_API_SECRET = '"' + TwitterSecretKey + '"' ?: '"Twitter Login won\'t work. Please use the apk from the apk branch."'
+//def STRING = 'String'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.systers.conference"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 18
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        each { type ->
-            type.buildConfigField STRING, 'TwitterApiKey', TWITTER_API_KEY
-            type.buildConfigField STRING, 'TwitterSecretKey', TWITTER_API_SECRET
-        }
+        // TODO: Uncomment or remove once we have a clear backend.
+//        each { type ->
+//            type.buildConfigField STRING, 'TwitterApiKey', TWITTER_API_KEY
+//            type.buildConfigField STRING, 'TwitterSecretKey', TWITTER_API_SECRET
+//        }
     }
     buildTypes {
         release {
@@ -50,11 +52,11 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.android.support:design:27.1.1'
     compile 'com.jakewharton:butterknife:8.6.0'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:recyclerview-v7:27.1.1'
+    compile 'com.android.support:support-v4:27.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.Mariovc:ImagePicker:1.1.1'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
@@ -70,8 +72,8 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
-    androidTestCompile 'com.android.support:recyclerview-v7:25.3.1'
-    androidTestCompile 'com.android.support:design:25.3.1'
+    androidTestCompile 'com.android.support:recyclerview-v7:27.1.1'
+    androidTestCompile 'com.android.support:design:27.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
