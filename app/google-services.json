@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "82989959842",
+    "firebase_url": "https://conf-5c647.firebaseio.com",
+    "project_id": "conf-5c647",
+    "storage_bucket": "conf-5c647.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82989959842:android:d9eb9eba14a5936c",
+        "android_client_info": {
+          "package_name": "com.systers.conference"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82989959842-bqeqtdbuglu8u2dv8o9ls2f9ql1htjfa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.systers.conference",
+            "certificate_hash": "7ebfb7dff239f1e0f4ead6f11b3d51338c9f9184"
+          }
+        },
+        {
+          "client_id": "82989959842-j37qepl7htr9i7178lb1mqdgnba32aph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYM-tyTTvDwlmZM_OLKVmo22KzzJawXPM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82989959842-j37qepl7htr9i7178lb1mqdgnba32aph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
