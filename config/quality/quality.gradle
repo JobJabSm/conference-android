@@ -11,6 +11,7 @@
  */
 
 apply plugin: 'findbugs'
+apply plugin: 'checkstyle'
 
 dependencies {
     checkstyle 'com.puppycrawl.tools:checkstyle:8.7'
@@ -19,7 +20,7 @@ dependencies {
 def qualityConfigDir = "$project.rootDir/config/quality";
 def reportsDir = "$project.buildDir/reports"
 
-check.dependsOn 'findbugs'
+check.dependsOn 'findbugs', 'checkstyle'
 
 task findbugs(type: FindBugs,
         group: 'Verification',
@@ -48,4 +49,19 @@ task findbugs(type: FindBugs,
     }
 
     classpath = files()
+}
+
+task checkstyle(type: Checkstyle, group: 'Verification', description: 'Runs code style checks') {
+    configFile file("$qualityConfigDir/checkstyle/checkstyle-config.xml")
+    source 'src'
+    include '**/*.java'
+
+    reports {
+        xml.enabled = true
+        xml {
+            destination "$reportsDir/checkstyle/checkstyle.xml"
+        }
+    }
+
+    classpath = files( )
 }
