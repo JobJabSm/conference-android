@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
+apply from: '../config/quality/quality.gradle'
 
 // TODO: Uncomment or remove once we have a clear backend.
 //def TWITTER_API_KEY = '"' + TwitterApiKey + '"' ?: '"Twitter Login won\'t work. Please use the apk from the apk branch."'
@@ -51,7 +52,7 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0'
     compile 'com.android.support:appcompat-v7:27.1.1'
     compile 'com.android.support:design:27.1.1'
     compile 'com.jakewharton:butterknife:8.6.0'
