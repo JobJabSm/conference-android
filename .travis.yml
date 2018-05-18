@@ -13,5 +13,9 @@ before_script:
  - chmod +x apk-generator.sh
 script:
  - ./gradlew assembleDebug # Change this to "gradlew build" once lint issues are fixed. Also update generate-apk.sh accordingly
+ # Uncomment when issues are fixed. This would cause travis to fail.
+# - ./gradlew pmd
+# - ./gradlew findbugs
+# - ./gradlew checkstyle
 after_success:
  - ./apk-generator.sh
