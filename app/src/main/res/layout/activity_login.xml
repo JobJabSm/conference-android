@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    tools:context=".ui.online.login.LoginActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        style="@style/AuthMethodPicker.Logo"
-        app:layout_constraintBottom_toTopOf="@+id/container"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/anita_borg_logo"
-        tools:ignore="ContentDescription" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fitsSystemWindows="true">
 
-    <ScrollView
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin"
+            tools:context=".SignInActivity">
 
-        <LinearLayout
-            android:id="@+id/btn_holder"
-            style="@style/AuthMethodPicker.ButtonHolder">
+            <ImageView
+                android:contentDescription="@string/logo"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/anita_borg_logo" />
+
+
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:inputType="text" />
+
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword" />
+
 
             <Button
-                android:id="@+id/google_button"
-                style="@style/AuthUI.Button.AccountChooser.GoogleButton"
-                android:text="@string/sign_in_with_google"
-                tools:ignore="UnusedIds" />
-
-            <Button
-                android:id="@+id/twitter_button"
-                style="@style/AuthUI.Button.AccountChooser.TwitterButton"
-                android:text="@string/sign_in_with_twitter"
-                tools:ignore="UnusedIds" />
+                android:id="@+id/btn_log_in"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:background="@color/colorPrimary"
+                android:text="@string/sign_in_button_text"
+                android:textColor="@color/material_white_87"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
 

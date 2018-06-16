@@ -35,4 +35,6 @@
     <dimen name="button_inset_top">0dp</dimen>
     <dimen name="auth_method_button_drawablePadding">12dp</dimen>
     <dimen name="auth_method_button_margin">4dp</dimen>
+    <dimen name="text_size">14sp</dimen>
+    <dimen name="margin">16dp</dimen>
 </resources>

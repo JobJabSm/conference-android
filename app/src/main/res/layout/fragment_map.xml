@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.systers.conference.maps.MapFragment">
+    tools:context=".ui.online.maps.MapFragment">
 
-    <com.systers.conference.widgets.viewpager.VerticalViewPager
+    <com.systers.conference.ui.views.viewpager.VerticalViewPager
         android:id="@+id/map_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.systers.conference.widgets.viewpager.CircleViewPagerIndicator
+    <com.systers.conference.ui.views.viewpager.CircleViewPagerIndicator
         android:id="@+id/map_circle_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

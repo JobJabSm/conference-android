@@ -114,4 +114,16 @@
     <!--Strings related to auth-->
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_in_with_twitter">Sign in with Twitter</string>
+    <string name="logo">logo</string>
+    <string name="username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="sign_in_button_text">Sign In</string>
+    <string name="logging_in">Logging in</string>
+    <string name="login_unsuccessful">Login unsuccessful</string>
+    <string name="login_successful">Login successful</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="updating_profile">Up</string>
+    <string name="profile_update_failed">Profile update failed</string>
+    <string name="profile_updated">Profile updated</string>
 </resources>

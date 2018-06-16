@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.systers.conference.speaker.SpeakerDetailsActivity">
+    tools:context=".ui.online.speaker.SpeakerDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/speakers_details_appbar"
@@ -94,6 +94,29 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_speaker_details" />
+    <LinearLayout
+        android:id="@+id/speakers_details_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/speakers_details_header_introduction"
+            style="@style/Header"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginRight="@dimen/content_margin"
+            android:layout_marginTop="@dimen/content_margin"
+            android:text="@string/speaker_introduction_section_heading" />
+
+        <TextView
+            android:id="@+id/speakers_details_description"
+            style="@style/Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/content_margin"
+            android:layout_marginStart="@dimen/content_margin" />
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

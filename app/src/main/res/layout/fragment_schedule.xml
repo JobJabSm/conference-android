@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme.AppBarOverlay"
-        tools:context="com.systers.conference.schedule.ScheduleFragment">
+        tools:context=".ui.online.schedule.ScheduleFragment">
 
-        <com.systers.conference.widgets.FontTabLayout
+        <com.systers.conference.ui.views.FontTabLayout
             android:id="@+id/day_tabs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

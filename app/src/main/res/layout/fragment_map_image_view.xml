@@ -1,4 +1,4 @@
-<com.systers.conference.widgets.SaveStatePhotoView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.systers.conference.ui.views.SaveStatePhotoView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/map_image_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

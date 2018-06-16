@@ -7,7 +7,7 @@
     android:fadeScrollbars="true"
     android:scrollbars="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.systers.conference.profile.EditProfileActivity"
+    tools:context=".ui.online.profile.edit.EditProfileActivity"
     tools:showIn="@layout/activity_edit_profile">
 
     <LinearLayout
@@ -119,39 +119,6 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/facebook_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/button_margin_top"
-            android:clickable="true"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:elevation="@dimen/button_elevation"
-            android:ellipsize="end"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:maxLines="1"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            tools:text="connect with facebook" />
-
-        <Button
-            android:id="@+id/google_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/button_margin_top"
-            android:clickable="true"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:elevation="@dimen/button_elevation"
-            android:ellipsize="end"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:maxLines="1"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            tools:text="connect with google" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

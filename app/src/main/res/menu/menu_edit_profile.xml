@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.systers.conference.profile.EditProfileActivity">
+    tools:context=".ui.online.profile.edit.EditProfileActivity">
     <item
         android:id="@+id/action_check"
         android:icon="@drawable/ic_check_black_24dp"

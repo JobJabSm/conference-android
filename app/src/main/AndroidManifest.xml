@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".ui.online.login.LoginActivity"
             android:theme="@style/LoginTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,41 +43,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".ui.online.register.RegisterActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.online.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/ActivityTheme" />
         <activity
-            android:name=".event.EventDetailActivity"
+            android:name=".ui.online.event.EventDetailActivity"
             android:label="@string/title_activity_event_detail"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.online.MainActivity"
             android:theme="@style/ActivityTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.systers.conference.MainActivity" />
+                android:value="com.systers.conference.ui.online.MainActivity" />
         </activity>
         <activity
-            android:name=".profile.EditProfileActivity"
+            android:name=".ui.online.profile.edit.EditProfileActivity"
             android:label="@string/title_activity_edit_profile"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.online.MainActivity"
             android:theme="@style/ActivityTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.systers.conference.MainActivity" />
+                android:value="com.systers.conference.ui.online.MainActivity" />
         </activity>
         <activity
-            android:name=".register.PreRegistrationActivity"
+            android:name=".ui.online.register.PreRegistrationActivity"
             android:label="@string/title_activity_pre_registration"
             android:theme="@style/ActivityTheme" />
         <activity
-            android:name=".speaker.SpeakerDetailsActivity"
+            android:name=".ui.online.speaker.SpeakerDetailsActivity"
             android:label="@string/title_activity_speaker_details"
-            android:parentActivityName=".event.EventDetailActivity"
+            android:parentActivityName=".ui.online.event.EventDetailActivity"
             android:theme="@style/ActivityTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".event.EventDetailActivity" />
+                android:value=".ui.online.event.EventDetailActivity" />
         </activity>
     </application>
 
