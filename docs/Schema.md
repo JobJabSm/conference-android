@@ -19,7 +19,7 @@ The application follows the following schema format:
     },
     Speakers: {
         "speaker_id": {
-            "avatar_url": "url of the avatar",
+            "avatarUrl": "url of the avatar",
             "company": "Company name",
             "description": "Speaker Description",
             "email": "email id of the speaker",

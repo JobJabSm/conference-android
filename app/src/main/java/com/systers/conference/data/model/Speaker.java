@@ -1,25 +1,39 @@
 package com.systers.conference.data.model;
 
-import io.realm.RealmObject;
-import io.realm.RealmResults;
-import io.realm.annotations.LinkingObjects;
-import io.realm.annotations.PrimaryKey;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
-public class Speaker extends RealmObject {
-    @LinkingObjects("speakers")
-    private final RealmResults<Session> sessions = null;
-    @PrimaryKey
-    private String id;
+import java.util.List;
+
+@Entity
+public class Speaker {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private String role;
     private String company;
-    private String avatar_url;
+    private String avatarUrl;
     private String description;
     private String email;
-    private String google_plus_url;
-    private String fb_url;
-    private String twitter_url;
-    private String linkedin_url;
+    private String googlePlusUrl;
+    private String fbUrl;
+    private String twitterUrl;
+    private String linkedinUrl;
+    @Ignore
+    private final List<Session> sessions = null;
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -46,11 +60,11 @@ public class Speaker extends RealmObject {
     }
 
     public String getAvatarUrl() {
-        return avatar_url;
+        return avatarUrl;
     }
 
-    public void setAvatarUrl(String avatar_url) {
-        this.avatar_url = avatar_url;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getDescription() {
@@ -70,46 +84,34 @@ public class Speaker extends RealmObject {
     }
 
     public String getGooglePlusUrl() {
-        return google_plus_url;
+        return googlePlusUrl;
     }
 
-    public void setGooglePlusUrl(String google_plus_url) {
-        this.google_plus_url = google_plus_url;
+    public void setGooglePlusUrl(String googlePlusUrl) {
+        this.googlePlusUrl = googlePlusUrl;
     }
 
     public String getFbUrl() {
-        return fb_url;
+        return fbUrl;
     }
 
-    public void setFbUrl(String fb_url) {
-        this.fb_url = fb_url;
+    public void setFbUrl(String fbUrl) {
+        this.fbUrl = fbUrl;
     }
 
     public String getTwitterUrl() {
-        return twitter_url;
+        return twitterUrl;
     }
 
-    public void setTwitterUrl(String twitter_url) {
-        this.twitter_url = twitter_url;
+    public void setTwitterUrl(String twitterUrl) {
+        this.twitterUrl = twitterUrl;
     }
 
-    public String getLinkedInUrl() {
-        return linkedin_url;
+    public String getLinkedinUrl() {
+        return linkedinUrl;
     }
 
-    public void setLinkedInUrl(String linkedin_url) {
-        this.linkedin_url = linkedin_url;
-    }
-
-    public RealmResults<Session> getSessions() {
-        return sessions;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setLinkedinUrl(String linkedinUrl) {
+        this.linkedinUrl = linkedinUrl;
     }
 }

@@ -1,14 +1,15 @@
 package com.systers.conference.data.model;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.Index;
-import io.realm.annotations.PrimaryKey;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
-public class Session extends RealmObject {
-    @PrimaryKey
-    private String id;
-    @Index
+import java.util.List;
+
+@Entity
+public class Session {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private String sessiondate;
     private String starttime;
@@ -17,8 +18,18 @@ public class Session extends RealmObject {
     private String location;
     private String description;
     private boolean isBookmarked;
-    private RealmList<Track> tracks;
-    private RealmList<Speaker> speakers;
+    @Ignore
+    private List<Track> tracks;
+    @Ignore
+    private List<Speaker> speakers;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -28,35 +39,35 @@ public class Session extends RealmObject {
         this.name = name;
     }
 
-    public String getSessionDate() {
+    public String getSessiondate() {
         return sessiondate;
     }
 
-    public void setSessionDate(String sessiondate) {
+    public void setSessiondate(String sessiondate) {
         this.sessiondate = sessiondate;
     }
 
-    public String getStartTime() {
+    public String getStarttime() {
         return starttime;
     }
 
-    public void setStartTime(String starttime) {
+    public void setStarttime(String starttime) {
         this.starttime = starttime;
     }
 
-    public String getEndTime() {
+    public String getEndtime() {
         return endtime;
     }
 
-    public void setEndTime(String endtime) {
+    public void setEndtime(String endtime) {
         this.endtime = endtime;
     }
 
-    public String getSessionType() {
+    public String getSessiontype() {
         return sessiontype;
     }
 
-    public void setSessionType(String sessiontype) {
+    public void setSessiontype(String sessiontype) {
         this.sessiontype = sessiontype;
     }
 
@@ -76,35 +87,27 @@ public class Session extends RealmObject {
         this.description = description;
     }
 
-    public RealmList<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(RealmList<Track> tracks) {
-        this.tracks = tracks;
-    }
-
-    public RealmList<Speaker> getSpeakers() {
-        return speakers;
-    }
-
-    public void setSpeakers(RealmList<Speaker> speakers) {
-        this.speakers = speakers;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public boolean isBookmarked() {
         return isBookmarked;
     }
 
     public void setBookmarked(boolean bookmarked) {
         isBookmarked = bookmarked;
+    }
+
+    public List<Track> getTracks() {
+        return tracks;
+    }
+
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
+    }
+
+    public List<Speaker> getSpeakers() {
+        return speakers;
+    }
+
+    public void setSpeakers(List<Speaker> speakers) {
+        this.speakers = speakers;
     }
 }

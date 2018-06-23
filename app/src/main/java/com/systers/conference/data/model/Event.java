@@ -1,14 +1,23 @@
 package com.systers.conference.data.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
-public class Event extends RealmObject {
-    @PrimaryKey
-    private String id;
+@Entity
+public class Event {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private String startdate;
     private String enddate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -18,27 +27,19 @@ public class Event extends RealmObject {
         this.name = name;
     }
 
-    public String getStartDate() {
+    public String getStartdate() {
         return startdate;
     }
 
-    public void setStartDate(String startDate) {
-        this.startdate = startDate;
+    public void setStartdate(String startdate) {
+        this.startdate = startdate;
     }
 
-    public String getEndDate() {
+    public String getEnddate() {
         return enddate;
     }
 
-    public void setEndDate(String endDate) {
-        this.enddate = endDate;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setEnddate(String enddate) {
+        this.enddate = enddate;
     }
 }

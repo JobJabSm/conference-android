@@ -19,9 +19,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.systers.conference.ui.base.BaseActivity;
 import com.systers.conference.R;
 import com.systers.conference.data.model.Speaker;
+import com.systers.conference.ui.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,6 +1,9 @@
 package com.systers.conference.ui.online.schedule.day_wise;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.systers.conference.R;
-import com.systers.conference.data.db.RealmDataRepository;
 import com.systers.conference.data.model.Session;
 import com.systers.conference.ui.views.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
@@ -21,9 +23,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.realm.OrderedCollectionChangeSet;
-import io.realm.OrderedRealmCollectionChangeListener;
-import io.realm.RealmResults;
 
 /**
  * A fragment representing a list of Items.
@@ -38,8 +37,7 @@ public class DayWiseScheduleFragment extends Fragment implements DayScheduleMvpV
     private int mColumnCount = 1;
     private String sessionDate;
     private Unbinder unbinder;
-    private RealmResults<Session> sessions;
-    private RealmDataRepository realmRepo = RealmDataRepository.getDefaultInstance();
+    private DayScheduleViewModel dayScheduleViewModel;
     private List<Session> mSessions = new ArrayList<>();
     private String activityTitle;
 
@@ -60,6 +58,7 @@ public class DayWiseScheduleFragment extends Fragment implements DayScheduleMvpV
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dayScheduleViewModel = ViewModelProviders.of(this).get(DayScheduleViewModel.class);
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             sessionDate = getArguments().getString(ARG_SESSION_DATE);
@@ -90,26 +89,32 @@ public class DayWiseScheduleFragment extends Fragment implements DayScheduleMvpV
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        sessions.removeAllChangeListeners();
     }
 
     @Override
     public void showSchedule() {
         final DayWiseScheduleAdapter scheduleAdapter = new DayWiseScheduleAdapter(mSessions, getActivity());
         if (activityTitle.equals(getString(R.string.schedule_title))) {
-            sessions = realmRepo.getSessionsByDay(sessionDate);
+            dayScheduleViewModel.getSessionsByDay(sessionDate).observe(this, new Observer<List<Session>>() {
+                @Override
+                public void onChanged(@Nullable List<Session> sessions) {
+                    mSessions.clear();
+                    mSessions.addAll(sessions);
+                    scheduleAdapter.setSessions(mSessions);
+                    scheduleAdapter.notifyDataSetChanged();
+                }
+            });
         } else if (activityTitle.equals(getString(R.string.myschedule_title))) {
-            sessions = realmRepo.getBookmarkedSessions(sessionDate);
+            dayScheduleViewModel.getBookmerkedSessions().observe(this, new Observer<List<Session>>() {
+                @Override
+                public void onChanged(@Nullable List<Session> sessions) {
+                    mSessions.clear();
+                    mSessions.addAll(sessions);
+                    scheduleAdapter.setSessions(mSessions);
+                    scheduleAdapter.notifyDataSetChanged();
+                }
+            });
         }
-        sessions.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<Session>>() {
-            @Override
-            public void onChange(RealmResults<Session> sessions, OrderedCollectionChangeSet changeSet) {
-                mSessions.clear();
-                mSessions.addAll(sessions);
-                scheduleAdapter.setSessions(mSessions);
-                scheduleAdapter.notifyDataSetChanged();
-            }
-        });
         // Set the adapter
         if (mRecyclerView != null) {
             if (mColumnCount <= 1) {

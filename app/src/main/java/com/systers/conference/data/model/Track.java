@@ -1,18 +1,31 @@
 package com.systers.conference.data.model;
 
-import io.realm.RealmObject;
-import io.realm.RealmResults;
-import io.realm.annotations.LinkingObjects;
-import io.realm.annotations.PrimaryKey;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
+import java.util.List;
 
-public class Track extends RealmObject {
-    @LinkingObjects("tracks")
-    private final RealmResults<Session> sessions = null;
-    @PrimaryKey
-    private String id;
+@Entity
+public class Track {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private String color;
+    @Ignore
+    private final List<Session> sessions = null;
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -28,17 +41,5 @@ public class Track extends RealmObject {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public RealmResults<Session> getSessions() {
-        return sessions;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

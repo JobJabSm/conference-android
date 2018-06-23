@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.systers.conference.R;
-import com.systers.conference.ui.online.event.EventDetailActivity;
 import com.systers.conference.data.model.Session;
+import com.systers.conference.ui.online.event.EventDetailActivity;
 import com.systers.conference.utils.DateTimeUtil;
 
 import butterknife.BindView;
@@ -41,7 +41,7 @@ public class DayWiseScheduleViewHolder extends ViewHolder {
 
     public void bindSession() {
         sessionTitle.setText(mSession.getName());
-        sessionSubTitle.setText(DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(mSession.getStartTime())) + " - " + DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(mSession.getEndTime())) + ", " + mSession.getLocation());
+        sessionSubTitle.setText(DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(mSession.getStarttime())) + " - " + DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(mSession.getEndtime())) + ", " + mSession.getLocation());
         calendarImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -18,12 +18,12 @@ import com.heinrichreimersoftware.singleinputform.steps.CheckBoxStep;
 import com.heinrichreimersoftware.singleinputform.steps.OptionStep;
 import com.heinrichreimersoftware.singleinputform.steps.Step;
 import com.heinrichreimersoftware.singleinputform.steps.TextStep;
-import com.systers.conference.ui.online.MainActivity;
 import com.systers.conference.R;
 import com.systers.conference.data.DataDownloadManager;
-import com.systers.conference.ui.callback.ObjectResponseCallback;
 import com.systers.conference.data.model.AttendeeId;
 import com.systers.conference.data.model.Question;
+import com.systers.conference.ui.callback.ObjectResponseCallback;
+import com.systers.conference.ui.online.MainActivity;
 import com.systers.conference.utils.AccountUtils;
 import com.systers.conference.utils.LogUtils;
 

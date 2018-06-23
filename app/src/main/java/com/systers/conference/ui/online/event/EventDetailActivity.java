@@ -1,10 +1,12 @@
 package com.systers.conference.ui.online.event;
 
+import android.arch.lifecycle.Observer;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.Toolbar;
@@ -19,11 +21,11 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.squareup.picasso.Picasso;
-import com.systers.conference.ui.base.BaseActivity;
 import com.systers.conference.R;
-import com.systers.conference.data.db.RealmDataRepository;
+import com.systers.conference.data.db.repositories.SessionRepository;
 import com.systers.conference.data.model.Session;
 import com.systers.conference.data.model.Speaker;
+import com.systers.conference.ui.base.BaseActivity;
 import com.systers.conference.ui.views.DayWiseScheduleViewHolder;
 import com.systers.conference.utils.DateTimeUtil;
 
@@ -35,12 +37,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.realm.ObjectChangeSet;
-import io.realm.OrderedCollectionChangeSet;
-import io.realm.OrderedRealmCollectionChangeListener;
-import io.realm.RealmList;
-import io.realm.RealmModel;
-import io.realm.RealmObjectChangeListener;
 
 public class EventDetailActivity extends BaseActivity implements EventDetailMvpView{
 
@@ -70,8 +66,7 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
     TextView mSpeakerListHeader;
     private Session mSession;
     private List<Speaker> mSpeakerList = new ArrayList<>();
-    private RealmList<Speaker> mRealmSpeakers;
-    private RealmDataRepository mRealmRepo = RealmDataRepository.getDefaultInstance();
+    private SessionRepository sessionRepository;
 
     @OnClick(R.id.calendar_fab)
     public void addToCalendar() {
@@ -95,9 +90,11 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
     public void toggleBookmark() {
         if (mSession != null) {
             if (mSession.isBookmarked()) {
-                mRealmRepo.setBookmark(mSession.getId(), false);
+                mSession.setBookmarked(false);
+                sessionRepository.insertSessions(mSession);
             } else {
-                mRealmRepo.setBookmark(mSession.getId(), true);
+                mSession.setBookmarked(true);
+                sessionRepository.insertSessions(mSession);
             }
         }
     }
@@ -107,6 +104,7 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         ButterKnife.bind(this);
+        sessionRepository = new SessionRepository(getApplication());
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -142,11 +140,11 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
     private void updateSession() {
         mEventTitle.setText(mSession.getName());
         mEventDescription.setText(mSession.getDescription());
-        mAudience.setText(mSession.getSessionType());
+        mAudience.setText(mSession.getSessiontype());
         mRoom.setText(mSession.getLocation());
-        String startTime = DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(mSession.getStartTime()));
-        String endTime = DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(mSession.getEndTime()));
-        Date date = DateTimeUtil.getDate(mSession.getSessionDate());
+        String startTime = DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(mSession.getStarttime()));
+        String endTime = DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(mSession.getEndtime()));
+        Date date = DateTimeUtil.getDate(mSession.getSessiondate());
         String descriptiveDate = "";
         if (date != null) {
             descriptiveDate = DateTimeUtil.getDateDescriptive(date);
@@ -216,28 +214,18 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSession.removeAllChangeListeners();
-        mRealmSpeakers.removeAllChangeListeners();
     }
 
     @Override
     public void showEventDetails() {
         setDrawables();
-        mSession = mRealmRepo.getSessionById(getIntent().getStringExtra(DayWiseScheduleViewHolder.SESSION_ID));
-        updateSession();
-        updateSpeakers();
-        mSession.addChangeListener(new RealmObjectChangeListener<RealmModel>() {
-            @Override
-            public void onChange(RealmModel realmModel, ObjectChangeSet changeSet) {
-                updateSession();
-            }
-        });
-        mRealmSpeakers = mSession.getSpeakers();
-        mRealmSpeakers.addChangeListener(new OrderedRealmCollectionChangeListener<RealmList<Speaker>>() {
-            @Override
-            public void onChange(RealmList<Speaker> speakers, OrderedCollectionChangeSet changeSet) {
-                updateSpeakers();
-            }
-        });
+        sessionRepository.getSessionById(getIntent().getStringExtra(DayWiseScheduleViewHolder.SESSION_ID)).observe(this,
+                new Observer<Session>() {
+                    @Override
+                    public void onChanged(@Nullable Session session) {
+                        updateSession();
+                        updateSpeakers();
+                    }
+                });
     }
 }

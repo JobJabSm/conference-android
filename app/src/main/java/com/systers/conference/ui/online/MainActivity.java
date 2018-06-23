@@ -21,10 +21,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.systers.conference.R;
+import com.systers.conference.ui.base.BaseActivity;
 import com.systers.conference.ui.online.maps.MapFragment;
 import com.systers.conference.ui.online.profile.view.ProfileFragment;
 import com.systers.conference.ui.online.schedule.ScheduleFragment;
-import com.systers.conference.ui.base.BaseActivity;
 import com.systers.conference.utils.LogUtils;
 
 import butterknife.BindView;

@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.systers.conference.R;
-import com.systers.conference.ui.base.BaseRecyclerViewAdapter;
 import com.systers.conference.data.model.Session;
+import com.systers.conference.ui.base.BaseRecyclerViewAdapter;
 import com.systers.conference.ui.views.DayWiseScheduleViewHolder;
-import com.systers.conference.utils.DateTimeUtil;
 import com.systers.conference.ui.views.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
+import com.systers.conference.utils.DateTimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ class DayWiseScheduleAdapter extends BaseRecyclerViewAdapter<Session, DayWiseSch
 
     @Override
     public long getHeaderId(int position) {
-        return Long.valueOf(getItem(position).getStartTime());
+        return Long.valueOf(getItem(position).getStarttime());
     }
 
     @Override
@@ -61,6 +61,6 @@ class DayWiseScheduleAdapter extends BaseRecyclerViewAdapter<Session, DayWiseSch
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
         TextView textView = holder.itemView.findViewById(R.id.recycler_view_header);
-        textView.setText(DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(getItem(position).getStartTime())));
+        textView.setText(DateTimeUtil.getTimeFromTimeStamp(DateTimeUtil.FORMAT_24H, Long.valueOf(getItem(position).getStarttime())));
     }
 }
