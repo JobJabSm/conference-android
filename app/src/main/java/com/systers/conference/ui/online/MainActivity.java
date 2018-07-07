@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity {
             if (getIntent().getBooleanExtra(getString(R.string.edit_profile), false)) {
                 selectNavigationItem(R.id.imageView);
             } else {
-                selectNavigationItem(R.id.nav_camera);
+                selectNavigationItem(R.id.nav_schedule);
             }
         }
     }
@@ -164,15 +164,15 @@ public class MainActivity extends BaseActivity {
         if (mCurrentMenuSection != itemId) {
             mCurrentMenuSection = itemId;
             switch (itemId) {
-                case R.id.nav_camera:
+                case R.id.nav_schedule:
                     mNavigationView.getMenu().findItem(itemId).setChecked(true);
                     updateUI(Section.SCHEDULE);
                     break;
-                case R.id.nav_gallery:
+                case R.id.nav_my_schedule:
                     mNavigationView.getMenu().findItem(itemId).setChecked(true);
                     updateUI(Section.MYSCHEDULE);
                     break;
-                case R.id.nav_slideshow:
+                case R.id.nav_maps:
                     mNavigationView.getMenu().findItem(itemId).setChecked(true);
                     updateUI(Section.MAP);
                     break;
@@ -185,13 +185,13 @@ public class MainActivity extends BaseActivity {
 
     private void mapIdToSection(int itemId) {
         switch (itemId) {
-            case R.id.nav_camera:
+            case R.id.nav_schedule:
                 mCurrentSection = Section.SCHEDULE;
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_my_schedule:
                 mCurrentSection = Section.MYSCHEDULE;
                 break;
-            case R.id.nav_slideshow:
+            case R.id.nav_maps:
                 mCurrentSection = Section.MAP;
                 break;
             case R.id.imageView:

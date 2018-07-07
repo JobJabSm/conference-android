@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.mvc.imagepicker.ImagePicker;
@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class EditProfileActivity extends AppCompatActivity implements EditProfileMvpView{
+public class EditProfileActivity extends AppCompatActivity implements EditProfileMvpView {
 
     private static final String LOG_TAG = LogUtils.makeLogTag(EditProfileActivity.class);
     private static final String[] RUN_TIME_PERMISSIONS = Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 ? new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE} : new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -50,10 +50,6 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     CircleImageView mAvatar;
     @BindView(R.id.edit_icon)
     FloatingActionButton mEditIcon;
-    @BindView(R.id.edit_first_name)
-    EditText mFirstName;
-    @BindView(R.id.edit_last_name)
-    EditText mLastName;
     @BindView(R.id.edit_email)
     EditText mEmail;
     @BindView(R.id.edit_company_name)
@@ -176,17 +172,17 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     private void attemptToSave(boolean isBackPressed) {
         mTextFirstName.setError(null);
         mTextLastName.setError(null);
-        String firstName = mFirstName.getText().toString();
-        String lastName = mLastName.getText().toString();
+        String firstName = mTextFirstName.getEditText().getText().toString();
+        String lastName = mTextLastName.getEditText().getText().toString();
         boolean cancel = false;
         View focusView = null;
         if (TextUtils.isEmpty(firstName)) {
             mTextFirstName.setError(getString(R.string.error_field_required));
-            focusView = mFirstName;
+            focusView = mTextFirstName;
             cancel = true;
         } else if (TextUtils.isEmpty(lastName)) {
             mTextLastName.setError(getString(R.string.error_field_required));
-            focusView = mLastName;
+            focusView = mTextLastName;
             cancel = true;
         }
         if (cancel) {
@@ -198,12 +194,12 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
 
     private void saveChanges(boolean isBackPressed) {
-        LogUtils.LOGE(LOG_TAG, mFirstName.getText().toString() + ' ' + AccountUtils.getFirstName(this));
+        LogUtils.LOGE(LOG_TAG, mTextFirstName.getEditText().getText().toString() + ' ' + AccountUtils.getFirstName(this));
         final Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(getString(R.string.edit_profile), true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        boolean dataChanged = !((mFirstName.getText().toString().equals(AccountUtils.getFirstName(this))) &&
-                (mLastName.getText().toString().equals(AccountUtils.getLastName(this))) &&
+        boolean dataChanged = !((mTextFirstName.getEditText().getText().toString().equals(AccountUtils.getFirstName(this))) &&
+                (mTextLastName.getEditText().getText().toString().equals(AccountUtils.getLastName(this))) &&
                 (mCompanyName.getText().toString().equals(AccountUtils.getCompanyName(this))) &&
                 (mRole.getText().toString().equals(AccountUtils.getCompanyRole(this))));
         if (isBackPressed) {
@@ -234,11 +230,12 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             }
         } else {
             if (dataChanged) {
-                AccountUtils.setFirstName(this, mFirstName.getText().toString());
-                AccountUtils.setLastName(this, mLastName.getText().toString());
+                AccountUtils.setFirstName(this, mTextFirstName.getEditText().getText().toString());
+                AccountUtils.setLastName(this, mTextLastName.getEditText().getText().toString());
                 AccountUtils.setCompanyName(this, mCompanyName.getText().toString());
                 AccountUtils.setCompanyRole(this, mRole.getText().toString());
-                Toast.makeText(this, getString(R.string.save_toast), Toast.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), getString(R.string.save_toast),
+                        Snackbar.LENGTH_SHORT).show();
                 editProfilePresenter.updateProfile();
             }
             startActivity(intent);
@@ -248,8 +245,8 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
     @Override
     public void loadProfile() {
-        mFirstName.setText(AccountUtils.getFirstName(this));
-        mLastName.setText(AccountUtils.getLastName(this));
+        mTextFirstName.getEditText().setText(AccountUtils.getFirstName(this));
+        mTextLastName.getEditText().setText(AccountUtils.getLastName(this));
         mEmail.setText(AccountUtils.getEmail(this));
         mCompanyName.setText(AccountUtils.getCompanyName(this));
         mRole.setText(AccountUtils.getCompanyRole(this));
@@ -260,7 +257,8 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     public void profileUpdateSuccessful() {
         loadProfile();
         hideProgressDialog();
-        Toast.makeText(this, R.string.profile_updated, Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content), R.string.profile_updated,
+                Snackbar.LENGTH_SHORT).show();
         onBackPressed();
     }
 
@@ -270,7 +268,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         if (TextUtils.isEmpty(errorMessage)) {
             errorMessage = getString(R.string.profile_update_failed);
         }
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

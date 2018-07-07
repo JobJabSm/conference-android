@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,14 +34,10 @@ public class SpeakerDetailsActivity extends BaseActivity
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.speaker_image)
     ImageView image;
-    @BindView(R.id.speakers_details_title)
-    TextView title;
-    @BindView(R.id.speakers_details_designation)
+    @BindView(R.id.speaker_details_title)
     TextView designation;
     @BindView(R.id.speakers_details_description)
     TextView description;
-    @BindView(R.id.speakers_details_header)
-    LinearLayout header;
     @BindView(R.id.speakers_details_appbar)
     AppBarLayout appBarLayout;
     @BindView(R.id.progress_bar)
@@ -71,18 +66,15 @@ public class SpeakerDetailsActivity extends BaseActivity
         float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
         if (percentage == 1f && isHideToolbarView) {
             if (TextUtils.isEmpty(speaker.getRole()) && TextUtils.isEmpty(speaker.getCompany())) {
-                header.setVisibility(View.GONE);
                 collapsingToolbarLayout.setTitle(speaker.getName());
                 isHideToolbarView = !isHideToolbarView;
             } else {
-                header.setVisibility(View.VISIBLE);
                 collapsingToolbarLayout.setTitle(" ");
                 designation.setMaxLines(1);
                 designation.setEllipsize(TextUtils.TruncateAt.END);
                 isHideToolbarView = !isHideToolbarView;
             }
         } else if (percentage < 1f && !isHideToolbarView) {
-            header.setVisibility(View.VISIBLE);
             collapsingToolbarLayout.setTitle(" ");
             designation.setMaxLines(3);
             isHideToolbarView = !isHideToolbarView;
@@ -105,7 +97,6 @@ public class SpeakerDetailsActivity extends BaseActivity
                         progressBar.setVisibility(View.GONE);
                     }
                 });
-        title.setText(speaker.getName());
         designation.setText(speaker.getRole() + ", " + speaker.getCompany());
         description.setText(speaker.getDescription());
     }

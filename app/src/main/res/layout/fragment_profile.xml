@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:orientation="vertical"
+            android:layout_gravity="center"
             android:padding="@dimen/activity_vertical_margin">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -41,18 +42,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:gravity="center_horizontal"
-                android:visibility="gone"
                 tools:text="Developer, Anita Borg Institute" />
-
-            <TextView
-                android:id="@+id/connected"
-                style="@style/Header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="@string/connected_accounts"
-                android:visibility="gone"
-                tools:text="Connected Accounts" />
 
         </LinearLayout>
 

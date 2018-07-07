@@ -126,4 +126,7 @@
     <string name="updating_profile">Up</string>
     <string name="profile_update_failed">Profile update failed</string>
     <string name="profile_updated">Profile updated</string>
+    <string name="forgot_password_button_text">Forgot password</string>
+    <string name="signup_text">Signuo</string>
+    <string name="skip_login">Skip login</string>
 </resources>

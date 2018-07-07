@@ -17,7 +17,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/item_image_view_extra_large"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -36,7 +36,7 @@
                 <ImageView
                     android:id="@+id/speaker_image"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/item_image_view_extra_large"
+                    android:layout_height="match_parent"
                     android:contentDescription="@null"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
@@ -44,10 +44,14 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/item_image_view_extra_large"
-                    android:alpha="0.7"
-                    android:background="@drawable/backdrop"
-                    android:fitsSystemWindows="true" />
+                    android:layout_height="150dp"
+                    android:background="#33000000" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_gravity="bottom"
+                    android:background="#55000000" />
 
             </FrameLayout>
 
@@ -55,44 +59,47 @@
                 android:id="@+id/toolbar_speaker_details"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:theme="@style/ToolbarTheme" />
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                app:layout_collapseMode="pin" />
 
             <LinearLayout
-                android:id="@+id/speakers_details_header"
+                android:id="@+id/speaker_details_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="@dimen/speaker_details_margin"
-                android:layout_marginStart="@dimen/speaker_details_margin"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/speakers_details_title"
-                    fontPath="fonts/calibri-bold.ttf"
+                    android:id="@+id/speaker_details_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/speaker_details_margin"
-                    android:layout_marginStart="@dimen/speaker_details_margin"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/text_size_header"
-                    tools:ignore="MissingPrefix" />
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@android:color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    tools:targetApi="jelly_bean"
+                    tools:text="Title" />
 
                 <TextView
-                    android:id="@+id/speakers_details_designation"
+                    android:id="@+id/speaker_details_designation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/speaker_details_margin"
-                    android:layout_marginStart="@dimen/speaker_details_margin"
-                    android:paddingBottom="@dimen/drawable_padding"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_large"
+                    tools:text="Subtitle" />
 
             </LinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
+
 
     <LinearLayout
         android:id="@+id/speakers_details_container"
@@ -118,5 +125,12 @@
             android:layout_marginStart="@dimen/content_margin" />
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/speaker_sessions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:listitem="@layout/schedule_list_item" />
 
 </android.support.design.widget.CoordinatorLayout>

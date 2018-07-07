@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ShareCompat;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -15,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,14 +36,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EventDetailActivity extends BaseActivity implements EventDetailMvpView{
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.event_title)
-    TextView mEventTitle;
     @BindView(R.id.time)
     TextView mTime;
     @BindView(R.id.event_description)
@@ -54,11 +51,6 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
     TextView mRoom;
     @BindView(R.id.audience_level)
     TextView mAudience;
-    @BindView(R.id.calendar_fab)
-    FloatingActionButton mCal;
-    @BindView(R.id.share_fab)
-    FloatingActionButton mShare;
-    @BindView(R.id.bookmark_fab)
     FloatingActionButton mBookmark;
     @BindView(R.id.speakers_container)
     ViewGroup mSpeakers;
@@ -67,37 +59,6 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
     private Session mSession;
     private List<Speaker> mSpeakerList = new ArrayList<>();
     private SessionRepository sessionRepository;
-
-    @OnClick(R.id.calendar_fab)
-    public void addToCalendar() {
-        Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setType("vnd.android.cursor.item/event");
-        intent.putExtra(CalendarContract.Events.TITLE, mEventTitle.getText().toString());
-        intent.putExtra(CalendarContract.Events.DESCRIPTION, mEventDescription.getText().toString());
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, R.string.calendar_not_found, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @OnClick(R.id.share_fab)
-    public void share() {
-        startActivity(getShareChooserIntent());
-    }
-
-    @OnClick(R.id.bookmark_fab)
-    public void toggleBookmark() {
-        if (mSession != null) {
-            if (mSession.isBookmarked()) {
-                mSession.setBookmarked(false);
-                sessionRepository.insertSessions(mSession);
-            } else {
-                mSession.setBookmarked(true);
-                sessionRepository.insertSessions(mSession);
-            }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,14 +76,6 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
         showEventDetails();
     }
 
-    private Intent getShareChooserIntent() {
-        return ShareCompat.IntentBuilder.from(this)
-                .setSubject(String.format("%1$s (GHC)", mEventTitle.getText().toString()))
-                .setType("text/plain")
-                .setText(String.format("%1$s %2$s #GHC", mEventTitle.getText().toString(), mTime.getText().toString()))
-                .setChooserTitle(R.string.share)
-                .createChooserIntent();
-    }
 
     private void setDrawables() {
         Drawable iconDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_place_grey600_24dp);
@@ -132,13 +85,10 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
         iconDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_people_grey600_24dp);
         mAudience.setCompoundDrawablesWithIntrinsicBounds(iconDrawable, null, null, null);
         iconDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_calendar_plus);
-        mCal.setIconDrawable(iconDrawable);
         iconDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_share_grey600_24dp);
-        mShare.setIconDrawable(iconDrawable);
     }
 
     private void updateSession() {
-        mEventTitle.setText(mSession.getName());
         mEventDescription.setText(mSession.getDescription());
         mAudience.setText(mSession.getSessiontype());
         mRoom.setText(mSession.getLocation());
@@ -170,7 +120,7 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
             mSpeakers.setVisibility(View.VISIBLE);
             for (Speaker speaker : mSpeakerList) {
                 View view = LayoutInflater.from(this).inflate(R.layout.speaker_list_item, mSpeakers, false);
-                CircleImageView avatar = (CircleImageView) view.findViewById(R.id.speaker_avatar_icon);
+                ImageView avatar = view.findViewById(R.id.speaker_avatar_icon);
                 if (!TextUtils.isEmpty(speaker.getAvatarUrl())) {
                     Picasso.with(this).load(speaker.getAvatarUrl())
                             .resize(80, 80)
@@ -219,7 +169,8 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
     @Override
     public void showEventDetails() {
         setDrawables();
-        sessionRepository.getSessionById(getIntent().getStringExtra(DayWiseScheduleViewHolder.SESSION_ID)).observe(this,
+        sessionRepository.getSessionById(getIntent()
+                .getStringExtra(DayWiseScheduleViewHolder.SESSION_ID)).observe(this,
                 new Observer<Session>() {
                     @Override
                     public void onChanged(@Nullable Session session) {
@@ -227,5 +178,36 @@ public class EventDetailActivity extends BaseActivity implements EventDetailMvpV
                         updateSpeakers();
                     }
                 });
+    }
+
+    @OnClick(R.id.calendar_fab)
+    public void addToCalendar() {
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra(CalendarContract.Events.TITLE, mSession.getName());
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, mSession.getDescription());
+        try {
+                 startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.calendar_not_found, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @OnClick(R.id.share_fab)
+    public void share() {
+        //TODO: Share your event here
+    }
+
+    @OnClick(R.id.bookmark_fab)
+    public void toggleBookmark() {
+        if (mSession != null) {
+            if (mSession.isBookmarked()) {
+                mSession.setBookmarked(false);
+                sessionRepository.insertSessions(mSession);
+            } else {
+                mSession.setBookmarked(true);
+                sessionRepository.insertSessions(mSession);
+            }
+        }
     }
 }

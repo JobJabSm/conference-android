@@ -11,27 +11,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/room_header"
+            style="@style/Header"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginRight="@dimen/content_margin"
+            android:layout_marginTop="@dimen/content_margin"
+            android:text="Room" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/content_margin">
-
-            <TextView
-                android:id="@+id/event_title"
-                style="@style/TextAppearance.AppCompat.Headline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textIsSelectable="true"
-                tools:text="@string/event_title" />
-
+            android:padding="@dimen/content_margin"
+            android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/room"
                 style="@style/Metadata"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_margin"
+                android:layout_marginTop="5dp"
                 android:saveEnabled="false"
                 tools:text="Janson (Building J)" />
 
@@ -79,16 +79,15 @@
             android:layout_marginTop="@dimen/content_margin"
             android:text="@string/speakers" />
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/speakers_container"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:divider="?android:attr/listDivider"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/content_margin"
-            android:paddingLeft="@dimen/activity_vertical_margin"
-            android:paddingRight="@dimen/activity_vertical_margin"
-            android:showDividers="middle" />
+            android:layout_gravity="center"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            tools:listitem="@layout/speaker_list_item" />
 
 
     </LinearLayout>
