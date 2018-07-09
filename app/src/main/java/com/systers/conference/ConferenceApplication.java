@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.stetho.Stetho;
+import com.squareup.leakcanary.LeakCanary;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -27,5 +28,10 @@ public class ConferenceApplication extends Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 }
