@@ -6,7 +6,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.util.List;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Track {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -14,32 +17,4 @@ public class Track {
     private String color;
     @Ignore
     private final List<Session> sessions = null;
-
-    public List<Session> getSessions() {
-        return sessions;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 }

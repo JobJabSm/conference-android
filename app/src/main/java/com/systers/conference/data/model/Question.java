@@ -3,6 +3,9 @@ package com.systers.conference.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Data;
+
+@Data
 public class Question {
     @SerializedName("questionid")
     private String questionId;
@@ -21,28 +24,4 @@ public class Question {
 
     @SerializedName("page")
     private String pageName;
-
-    public String getQuestionId() {
-        return questionId;
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public int getInputType() {
-        return Integer.valueOf(inputType);
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public String getPageId() {
-        return pageId;
-    }
-
-    public String getPageName() {
-        return pageName;
-    }
 }

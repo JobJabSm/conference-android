@@ -66,7 +66,7 @@ public class RegisterActivity extends SingleInputFormActivity implements ObjectR
         setInputGravity(Gravity.CENTER);
         if (questions != null) {
             for (Question question : questions) {
-                switch (question.getInputType()) {
+                switch (Integer.valueOf(question.getInputType())) {
                     case 1:
                         if (question.getFieldName().contains("email")) {
                             steps.add(new TextStep.Builder(this, question.getFieldName())
@@ -111,7 +111,7 @@ public class RegisterActivity extends SingleInputFormActivity implements ObjectR
     protected void onFormFinished(Bundle bundle) {
         Map<String, String> responses = new HashMap<>();
         for (Question question : questions) {
-            switch (question.getInputType()) {
+            switch (Integer.valueOf(question.getInputType())) {
                 case 1:
                     responses.put(question.getFieldName(), TextStep.text(bundle, question.getFieldName()));
                     break;

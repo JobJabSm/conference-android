@@ -5,7 +5,9 @@ import android.content.Context;
 
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
+import com.systers.conference.utils.ReleaseTree;
 
+import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class ConferenceApplication extends Application {
@@ -18,6 +20,13 @@ public class ConferenceApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new ReleaseTree());
+        }
+
         appContext = this;
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
